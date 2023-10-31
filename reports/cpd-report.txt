@@ -1,0 +1,271 @@
+Found a 24 line (150 tokens) duplication in the following files: 
+Starting at line 1005 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\IRestDocTemplate.java
+Starting at line 662 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\JaxrsDocBuildTemplate.java
+
+            body = UrlUtil.urlJoin(DocGlobalConstants.EMPTY, queryParamsMap)
+                    .replace("?", DocGlobalConstants.EMPTY);
+            body = StringUtil.removeQuotes(body);
+            url = apiMethodDoc.getServerUrl() + "/" + path;
+            url = UrlUtil.simplifyUrl(url);
+
+            if (requestExample.isJson()) {
+                if (StringUtil.isNotEmpty(body)) {
+                    url = url + "?" + body;
+                }
+                CurlRequest curlRequest = CurlRequest.builder()
+                        .setBody(requestExample.getJsonBody())
+                        .setContentType(apiMethodDoc.getContentType())
+                        .setType(methodType)
+                        .setReqHeaders(reqHeaderList)
+                        .setUrl(url);
+                exampleBody = CurlUtil.toCurl(curlRequest);
+            } else {
+                CurlRequest curlRequest;
+                if (StringUtil.isNotEmpty(body)) {
+                    curlRequest = CurlRequest.builder()
+                            .setBody(body)
+                            .setContentType(apiMethodDoc.getContentType())
+                            .setFileFormDataList(fileFormDataList)
+
+=====================================================================
+Found a 21 line (148 tokens) duplication in the following files: 
+Starting at line 269 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\builder\openapi\OpenApiBuilder.java
+Starting at line 279 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\builder\openapi\SwaggerBuilder.java
+
+        Map<String, Object> component = new HashMap<>();
+        component.put(DocGlobalConstants.DEFAULT_PRIMITIVE, STRING_COMPONENT);
+        apiDocs.forEach(
+                a -> {
+                    List<ApiMethodDoc> apiMethodDocs = a.getList();
+                    apiMethodDocs.forEach(
+                            method -> {
+                                //request components
+                                String requestSchema = OpenApiSchemaUtil.getClassNameFromParams(method.getRequestParams());
+                                List<ApiParam> requestParams = method.getRequestParams();
+                                Map<String, Object> prop = buildProperties(requestParams, component, false);
+                                component.put(requestSchema, prop);
+                                //response components
+                                List<ApiParam> responseParams = method.getResponseParams();
+                                String schemaName = OpenApiSchemaUtil.getClassNameFromParams(method.getResponseParams());
+                                component.put(schemaName, buildProperties(responseParams, component, true));
+                            }
+                    );
+                }
+        );
+        component.remove(OpenApiSchemaUtil.NO_BODY_PARAM);
+
+=====================================================================
+Found a 15 line (122 tokens) duplication in the following files: 
+Starting at line 935 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\IRestDocTemplate.java
+Starting at line 601 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\JaxrsDocBuildTemplate.java
+
+            } else if (JavaClassValidateUtil.isPrimitive(typeName) && !requestParam) {
+                FormData formData = new FormData();
+                formData.setKey(paramName);
+                formData.setDescription(comment);
+                formData.setType("text");
+                formData.setValue(mockValue);
+                formDataList.add(formData);
+            } else if (JavaClassValidateUtil.isArray(typeName) || JavaClassValidateUtil.isCollection(typeName)) {
+                String gicName = globGicName[0];
+                if (JavaClassValidateUtil.isArray(gicName)) {
+                    gicName = gicName.substring(0, gicName.indexOf("["));
+                }
+                if (!JavaClassValidateUtil.isPrimitive(gicName)
+                        && !configBuilder.getJavaProjectBuilder().getClassByName(gicName).isEnum()) {
+                    throw new RuntimeException("can't support binding Collection on method "
+
+=====================================================================
+Found a 12 line (116 tokens) duplication in the following files: 
+Starting at line 492 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\IRestDocTemplate.java
+Starting at line 779 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\IRestDocTemplate.java
+
+        List<JavaAnnotation> methodAnnotations = javaMethod.getAnnotations();
+        Map<String, MappingAnnotation> mappingAnnotationMap = frameworkAnnotations.getMappingAnnotations();
+        for (JavaAnnotation annotation : methodAnnotations) {
+            String annotationName = annotation.getType().getName();
+            MappingAnnotation mappingAnnotation = mappingAnnotationMap.get(annotationName);
+            if (Objects.nonNull(mappingAnnotation) && StringUtil.isNotEmpty(mappingAnnotation.getParamsProp())) {
+                Object paramsObjects = annotation.getNamedParameter(mappingAnnotation.getParamsProp());
+                if (Objects.isNull(paramsObjects)) {
+                    continue;
+                }
+                String params = StringUtil.removeQuotes(paramsObjects.toString());
+                if (!params.startsWith("[")) {
+
+=====================================================================
+Found a 19 line (112 tokens) duplication in the following files: 
+Starting at line 90 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\builder\openapi\OpenApiBuilder.java
+Starting at line 91 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\builder\openapi\SwaggerBuilder.java
+
+        json.put("components", buildComponentsSchema(apiDocList, ComponentTypeEnum.getComponentEnumByCode(config.getComponentType())));
+
+        String filePath = config.getOutPath();
+        filePath = filePath + DocGlobalConstants.OPEN_API_JSON;
+        String data = JsonUtil.toPrettyJson(json);
+        FileUtil.nioWriteFile(data, filePath);
+    }
+
+    /**
+     * Build openapi info
+     *
+     * @param apiConfig Configuration of smart-doc
+     */
+    private static Map<String, Object> buildInfo(ApiConfig apiConfig) {
+        Map<String, Object> infoMap = new HashMap<>(8);
+        infoMap.put("title", apiConfig.getProjectName() == null ? "Project Name is Null." : apiConfig.getProjectName());
+        infoMap.put("version", "1.0.0");
+        return infoMap;
+    }
+
+=====================================================================
+Found a 15 line (112 tokens) duplication in the following files: 
+Starting at line 702 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\IRestDocTemplate.java
+Starting at line 452 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\JaxrsDocBuildTemplate.java
+
+            } else if (JavaClassValidateUtil.isMap(fullTypeName)) {
+                log.warning("When using smart-doc, it is not recommended to use Map to receive parameters, Check it in "
+                        + javaMethod.getDeclaringClass().getCanonicalName() + "#" + javaMethod.getName());
+                // is map without Gic
+                if (JavaClassValidateUtil.isMap(typeName)) {
+                    ApiParam apiParam = ApiParam.of()
+                            .setField(paramName)
+                            .setType("map")
+                            .setId(paramList.size() + 1)
+                            .setPathParam(isPathVariable)
+                            .setQueryParam(queryParam)
+                            .setDesc(comment.toString())
+                            .setRequired(required)
+                            .setVersion(DocGlobalConstants.DEFAULT_VERSION);
+                    paramList.add(apiParam);
+
+=====================================================================
+Found a 34 line (93 tokens) duplication in the following files: 
+Starting at line 221 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\model\ApiMethodDoc.java
+Starting at line 64 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\model\torna\Apis.java
+
+    public Integer getIsRequestArray() {
+        return isRequestArray;
+    }
+
+    public void setIsRequestArray(Integer isRequestArray) {
+        this.isRequestArray = isRequestArray;
+    }
+
+    public String getRequestArrayType() {
+        return requestArrayType;
+    }
+
+    public void setRequestArrayType(String requestArrayType) {
+        this.requestArrayType = requestArrayType;
+    }
+
+    public Integer getIsResponseArray() {
+        return isResponseArray;
+    }
+
+    public void setIsResponseArray(Integer isResponseArray) {
+        this.isResponseArray = isResponseArray;
+    }
+
+    public String getResponseArrayType() {
+        return responseArrayType;
+    }
+
+    public void setResponseArrayType(String responseArrayType) {
+        this.responseArrayType = responseArrayType;
+    }
+
+
+    public String getMethodId() {
+
+=====================================================================
+Found a 14 line (92 tokens) duplication in the following files: 
+Starting at line 721 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\IRestDocTemplate.java
+Starting at line 466 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\JaxrsDocBuildTemplate.java
+
+                    continue;
+                }
+                String[] gicNameArr = DocClassUtil.getSimpleGicName(typeName);
+                if (JavaClassValidateUtil.isPrimitive(gicNameArr[1])) {
+                    ApiParam apiParam = ApiParam.of()
+                            .setField(paramName)
+                            .setType("map")
+                            .setId(paramList.size() + 1)
+                            .setPathParam(isPathVariable)
+                            .setQueryParam(queryParam)
+                            .setDesc(comment.toString())
+                            .setRequired(required)
+                            .setVersion(DocGlobalConstants.DEFAULT_VERSION);
+                    paramList.add(apiParam);
+
+=====================================================================
+Found a 13 line (89 tokens) duplication in the following files: 
+Starting at line 685 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\IRestDocTemplate.java
+Starting at line 439 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\JaxrsDocBuildTemplate.java
+
+                }
+            } else if (JavaClassValidateUtil.isPrimitive(fullTypeName)) {
+                ApiParam param = ApiParam.of()
+                        .setField(paramName)
+                        .setType(DocClassUtil.processTypeNameForParams(simpleName))
+                        .setId(paramList.size() + 1)
+                        .setPathParam(isPathVariable)
+                        .setQueryParam(queryParam)
+                        .setValue(mockValue)
+                        .setDesc(comment.toString())
+                        .setRequired(required)
+                        .setVersion(DocGlobalConstants.DEFAULT_VERSION);
+                paramList.add(param);
+
+=====================================================================
+Found a 13 line (88 tokens) duplication in the following files: 
+Starting at line 706 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\IRestDocTemplate.java
+Starting at line 724 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\IRestDocTemplate.java
+
+                if (JavaClassValidateUtil.isMap(typeName)) {
+                    ApiParam apiParam = ApiParam.of()
+                            .setField(paramName)
+                            .setType("map")
+                            .setId(paramList.size() + 1)
+                            .setPathParam(isPathVariable)
+                            .setQueryParam(queryParam)
+                            .setDesc(comment.toString())
+                            .setRequired(required)
+                            .setVersion(DocGlobalConstants.DEFAULT_VERSION);
+                    paramList.add(apiParam);
+                    if (requestBodyCounter > 0) {
+                        Map<String, Object> map = OpenApiSchemaUtil.mapTypeSchema("object");
+
+=====================================================================
+Found a 9 line (86 tokens) duplication in the following files: 
+Starting at line 61 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\SolonDocBuildTemplate.java
+Starting at line 44 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\SpringBootDocBuildTemplate.java
+
+public class SolonDocBuildTemplate implements IDocBuildTemplate<ApiDoc>, IRestDocTemplate {
+
+    @Override
+    public List<ApiDoc> getApiData(ProjectDocConfigBuilder projectBuilder) {
+        ApiConfig apiConfig = projectBuilder.getApiConfig();
+        List<ApiReqParam> configApiReqParams = Stream.of(apiConfig.getRequestHeaders(), apiConfig.getRequestParams()).filter(Objects::nonNull)
+            .flatMap(Collection::stream).collect(Collectors.toList());
+        FrameworkAnnotations frameworkAnnotations = registeredAnnotations();
+        List<ApiDoc> apiDocList = processApiData(projectBuilder, frameworkAnnotations, configApiReqParams,
+
+=====================================================================
+Found a 11 line (85 tokens) duplication in the following files: 
+Starting at line 632 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\IRestDocTemplate.java
+Starting at line 401 of C:\Users\isani\Documents\trab-manu\smart-doc\src\main\java\com\ly\doc\template\JaxrsDocBuildTemplate.java
+
+                    mockValue = StringUtils.join(mockValue, ",", JavaFieldUtil.createMockValue(paramsComments, paramName, gicName, gicName));
+                }
+                JavaClass gicJavaClass = builder.getJavaProjectBuilder().getClassByName(gicName);
+                if (gicJavaClass.isEnum()) {
+                    Object value = JavaClassUtil.getEnumValue(gicJavaClass, Boolean.TRUE);
+                    ApiParam param = ApiParam.of().setField(paramName).setDesc(comment + ",[array of enum]")
+                            .setRequired(required)
+                            .setPathParam(isPathVariable)
+                            .setQueryParam(queryParam)
+                            .setId(paramList.size() + 1)
+                            .setEnumValues(JavaClassUtil.getEnumValues(gicJavaClass))
+

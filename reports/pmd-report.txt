@@ -1,0 +1,248 @@
+src/main/java/com/ly/doc/builder/AdocDocBuilder.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/ApiDataBuilder.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/ApiDocBuilder.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/BaseDocBuilderTemplate.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/DocBuilderTemplate.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/DocBuilderTemplate.java:97:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/DocBuilderTemplate.java:111:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/DocBuilderTemplate.java:277:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/DocBuilderTemplate.java:316:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/HtmlApiDocBuilder.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/HtmlApiDocBuilder.java:114:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/PostmanJsonBuilder.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/ProjectDocConfigBuilder.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/ProjectDocConfigBuilder.java:59:	GodClass:	GodClass: Possible God Class (WMC=81, ATFD=69, TCC=7.510%)
+src/main/java/com/ly/doc/builder/TornaBuilder.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/openapi/OpenApiBuilder.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/openapi/OpenApiBuilder.java:138:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/builder/rpc/RpcAdocBuilder.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/rpc/RpcApiDataBuilder.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/rpc/RpcDocBuilderTemplate.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/rpc/RpcDocBuilderTemplate.java:90:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/rpc/RpcDocBuilderTemplate.java:138:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/rpc/RpcHtmlBuilder.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/rpc/RpcMarkdownBuilder.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/builder/rpc/RpcTornaBuilder.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/ApiReqParamInTypeEnum.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/ComponentTypeEnum.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/DocAnnotationConstants.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/DocGlobalConstants.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/DocLanguage.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/DocTags.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/DocValidatorAnnotationEnum.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/DubboAnnotationConstants.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/FrameworkEnum.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/HighlightStyle.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/JAXRSAnnotations.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/JAXRSAnnotations.java:32:	DataClass:	DataClass: The class 'JAXRSAnnotations' is suspected to be a Data Class (WOC=0.000%, NOPA=12, NOAM=0, WMC=2)
+src/main/java/com/ly/doc/constants/JakartaJaxrsAnnotations.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/JakartaJaxrsAnnotations.java:24:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/constants/JakartaJaxrsAnnotations.java:30:	DataClass:	DataClass: The class 'JakartaJaxrsAnnotations' is suspected to be a Data Class (WOC=0.000%, NOPA=23, NOAM=0, WMC=2)
+src/main/java/com/ly/doc/constants/MediaType.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/MediaType.java:24:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/Methods.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/SolonAnnotations.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/SolonRequestAnnotationsEnum.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/SpringMvcAnnotations.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/SpringMvcRequestAnnotationsEnum.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/TemplateVariable.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/TornaConstants.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/constants/ValidatorAnnotations.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/extension/dict/DictionaryValuesResolver.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/extension/dict/DictionaryValuesResolver.java:30:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/extension/dict/DictionaryValuesResolver.java:35:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:8:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:12:	DataClass:	DataClass: The class 'PropertyNamingStrategies' is suspected to be a Data Class (WOC=0.000%, NOPA=7, NOAM=0, WMC=0)
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:17:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:20:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:32:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:39:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:43:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:53:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:60:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:64:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:67:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:140:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:177:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:223:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:252:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/extension/json/PropertyNamingStrategies.java:322:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/factory/BuildTemplateFactory.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/filter/BoxReturnFilter.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/filter/DefaultReturnFilter.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/filter/ReturnTypeFilter.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/filter/ReturnTypeProcessor.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/filter/WebFluxReturnFilter.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/function/HtmlEscape.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/function/LineBreaksToBr.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/function/RemoveLineBreaks.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/function/RequestMappingFunc.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/handler/ICustomJavaMethodHandler.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/handler/IHeaderHandler.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/handler/IRequestMappingHandler.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/handler/JaxrsHeaderHandler.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/handler/JaxrsPathHandler.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/handler/SolonRequestHeaderHandler.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/handler/SolonRequestMappingHandler.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/handler/SpringMVCRequestHeaderHandler.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/handler/SpringMVCRequestMappingHandler.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/helper/BaseHelper.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/helper/FormDataBuildHelper.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/helper/FormDataBuildHelper.java:47:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/helper/FormDataBuildHelper.java:57:	ExcessiveMethodLength:	ExcessiveMethodLength: Avoid really long methods.
+src/main/java/com/ly/doc/helper/FormDataBuildHelper.java:204:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/helper/JavaProjectBuilderHelper.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/helper/JsonBuildHelper.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/helper/JsonBuildHelper.java:57:	GodClass:	GodClass: Possible God Class (WMC=125, ATFD=83, TCC=0.000%)
+src/main/java/com/ly/doc/helper/JsonBuildHelper.java:126:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/helper/JsonBuildHelper.java:136:	ExcessiveMethodLength:	ExcessiveMethodLength: Avoid really long methods.
+src/main/java/com/ly/doc/helper/JsonBuildHelper.java:232:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/helper/ParamsBuildHelper.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/helper/ParamsBuildHelper.java:67:	GodClass:	GodClass: Possible God Class (WMC=174, ATFD=196, TCC=0.000%)
+src/main/java/com/ly/doc/helper/ParamsBuildHelper.java:69:	ExcessiveMethodLength:	ExcessiveMethodLength: Avoid really long methods.
+src/main/java/com/ly/doc/helper/ParamsBuildHelper.java:69:	ExcessiveParameterList:	ExcessiveParameterList: Avoid long parameter lists.
+src/main/java/com/ly/doc/helper/ParamsBuildHelper.java:542:	ExcessiveParameterList:	ExcessiveParameterList: Avoid long parameter lists.
+src/main/java/com/ly/doc/model/ApiAllData.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiAllData.java:29:	DataClass:	DataClass: The class 'ApiAllData' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=14, WMC=14)
+src/main/java/com/ly/doc/model/ApiConfig.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiConfig.java:40:	GodClass:	GodClass: Possible God Class (WMC=151, ATFD=6, TCC=0.871%)
+src/main/java/com/ly/doc/model/ApiConstant.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiDataDictionary.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiDoc.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiDoc.java:28:	DataClass:	DataClass: The class 'ApiDoc' is suspected to be a Data Class (WOC=20.690%, NOPA=1, NOAM=23, WMC=31)
+src/main/java/com/ly/doc/model/ApiDocDict.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiDocDict.java:29:	DataClass:	DataClass: The class 'ApiDocDict' is suspected to be a Data Class (WOC=22.222%, NOPA=0, NOAM=7, WMC=9)
+src/main/java/com/ly/doc/model/ApiErrorCode.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiErrorCodeDictionary.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiGroup.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiMethodDoc.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiMethodReqParam.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiObjectReplacement.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiParam.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiReqParam.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiReturn.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/ApiReturn.java:27:	DataClass:	DataClass: The class 'ApiReturn' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=4, WMC=4)
+src/main/java/com/ly/doc/model/BodyAdvice.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/CustomField.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/DataDict.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/DocJavaField.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/DocJavaMethod.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/DocJavaParameter.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/DocJavaParameter.java:31:	DataClass:	DataClass: The class 'DocJavaParameter' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=10, WMC=10)
+src/main/java/com/ly/doc/model/DocMapping.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/FormData.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/FormData.java:26:	DataClass:	DataClass: The class 'FormData' is suspected to be a Data Class (WOC=15.385%, NOPA=0, NOAM=11, WMC=13)
+src/main/java/com/ly/doc/model/RevisionLog.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/RpcJavaApiDoc.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/RpcJavaApiDoc.java:28:	DataClass:	DataClass: The class 'RpcJavaApiDoc' is suspected to be a Data Class (WOC=0.000%, NOPA=1, NOAM=10, WMC=10)
+src/main/java/com/ly/doc/model/RpcJavaMethod.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/SourceCodePath.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/SystemPlaceholders.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/TagDoc.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/TagDoc.java:30:	DataClass:	DataClass: The class 'TagDoc' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=4, WMC=6)
+src/main/java/com/ly/doc/model/annotation/EntryAnnotation.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/annotation/FrameworkAnnotations.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/annotation/HeaderAnnotation.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/annotation/MappingAnnotation.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/annotation/PathVariableAnnotation.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/annotation/RequestBodyAnnotation.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/annotation/RequestParamAnnotation.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/framework/PageableAsQueryParam.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/framework/PageableAsQueryParam.java:26:	DataClass:	DataClass: The class 'PageableAsQueryParam' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=6, WMC=6)
+src/main/java/com/ly/doc/model/framework/PageableAsQueryParam.java:39:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/model/openapi/OpenApiTag.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/postman/InfoBean.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/postman/ItemBean.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/postman/ItemBean.java:30:	DataClass:	DataClass: The class 'ItemBean' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=8, WMC=8)
+src/main/java/com/ly/doc/model/postman/RequestItem.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/postman/RequestItem.java:28:	DataClass:	DataClass: The class 'RequestItem' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=4, WMC=4)
+src/main/java/com/ly/doc/model/postman/UrlBean.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/postman/UrlBean.java:36:	DataClass:	DataClass: The class 'UrlBean' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=14, WMC=21)
+src/main/java/com/ly/doc/model/postman/request/ParamBean.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/postman/request/ParamBean.java:26:	DataClass:	DataClass: The class 'ParamBean' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=6, WMC=6)
+src/main/java/com/ly/doc/model/postman/request/RequestBean.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/postman/request/RequestBean.java:32:	DataClass:	DataClass: The class 'RequestBean' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=10, WMC=10)
+src/main/java/com/ly/doc/model/postman/request/body/BodyBean.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/postman/request/body/BodyBean.java:31:	DataClass:	DataClass: The class 'BodyBean' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=6, WMC=8)
+src/main/java/com/ly/doc/model/postman/request/header/HeaderBean.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/postman/request/header/HeaderBean.java:28:	DataClass:	DataClass: The class 'HeaderBean' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=12, WMC=13)
+src/main/java/com/ly/doc/model/request/ApiRequestExample.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/request/CurlRequest.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/request/JaxrsPathMapping.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/request/RequestMapping.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/rpc/RpcApiAllData.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/rpc/RpcApiAllData.java:32:	DataClass:	DataClass: The class 'RpcApiAllData' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=16, WMC=16)
+src/main/java/com/ly/doc/model/rpc/RpcApiDependency.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/rpc/RpcApiDoc.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/rpc/RpcApiDoc.java:31:	DataClass:	DataClass: The class 'RpcApiDoc' is suspected to be a Data Class (WOC=4.000%, NOPA=2, NOAM=24, WMC=26)
+src/main/java/com/ly/doc/model/rpc/RpcApiMethodRpc.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/torna/Apis.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/torna/CommonErrorCode.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/torna/CommonErrorCode.java:26:	DataClass:	DataClass: The class 'CommonErrorCode' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=6, WMC=6)
+src/main/java/com/ly/doc/model/torna/DebugEnv.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/torna/DebugEnv.java:26:	DataClass:	DataClass: The class 'DebugEnv' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=4, WMC=4)
+src/main/java/com/ly/doc/model/torna/DubboInfo.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/torna/EnumInfo.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/torna/EnumInfo.java:28:	DataClass:	DataClass: The class 'EnumInfo' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=6, WMC=6)
+src/main/java/com/ly/doc/model/torna/HttpParam.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/torna/HttpParam.java:28:	DataClass:	DataClass: The class 'HttpParam' is suspected to be a Data Class (WOC=10.000%, NOPA=0, NOAM=27, WMC=30)
+src/main/java/com/ly/doc/model/torna/Item.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/torna/Item.java:26:	DataClass:	DataClass: The class 'Item' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=8, WMC=10)
+src/main/java/com/ly/doc/model/torna/TornaApi.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/torna/TornaApi.java:28:	DataClass:	DataClass: The class 'TornaApi' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=10, WMC=10)
+src/main/java/com/ly/doc/model/torna/TornaApi.java:30:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/torna/TornaDic.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/model/torna/TornaRequestInfo.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/template/IBaseDocBuildTemplate.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/template/IDocBuildTemplate.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/template/IRestDocTemplate.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/template/IRestDocTemplate.java:54:	ExcessiveClassLength:	ExcessiveClassLength: Avoid really long classes.
+src/main/java/com/ly/doc/template/IRestDocTemplate.java:295:	ExcessiveMethodLength:	ExcessiveMethodLength: Avoid really long methods.
+src/main/java/com/ly/doc/template/IRestDocTemplate.java:483:	ExcessiveMethodLength:	ExcessiveMethodLength: Avoid really long methods.
+src/main/java/com/ly/doc/template/IRestDocTemplate.java:593:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/template/IRestDocTemplate.java:594:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/template/IRestDocTemplate.java:769:	ExcessiveMethodLength:	ExcessiveMethodLength: Avoid really long methods.
+src/main/java/com/ly/doc/template/IRpcDocTemplate.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/template/JaxrsDocBuildTemplate.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/template/JaxrsDocBuildTemplate.java:56:	GodClass:	GodClass: Possible God Class (WMC=105, ATFD=300, TCC=1.818%)
+src/main/java/com/ly/doc/template/JaxrsDocBuildTemplate.java:121:	ExcessiveMethodLength:	ExcessiveMethodLength: Avoid really long methods.
+src/main/java/com/ly/doc/template/JaxrsDocBuildTemplate.java:320:	ExcessiveMethodLength:	ExcessiveMethodLength: Avoid really long methods.
+src/main/java/com/ly/doc/template/JaxrsDocBuildTemplate.java:540:	ExcessiveMethodLength:	ExcessiveMethodLength: Avoid really long methods.
+src/main/java/com/ly/doc/template/RpcDocBuildTemplate.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/template/RpcDocBuildTemplate.java:48:	GodClass:	GodClass: Possible God Class (WMC=63, ATFD=113, TCC=0.000%)
+src/main/java/com/ly/doc/template/SolonDocBuildTemplate.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/template/SolonDocBuildTemplate.java:143:	ExcessiveMethodLength:	ExcessiveMethodLength: Avoid really long methods.
+src/main/java/com/ly/doc/template/SpringBootDocBuildTemplate.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/template/SpringBootDocBuildTemplate.java:69:	ExcessiveMethodLength:	ExcessiveMethodLength: Avoid really long methods.
+src/main/java/com/ly/doc/utils/ApiParamTreeUtil.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/ApiParamTreeUtil.java:90:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/BeetlTemplateUtil.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/CurlUtil.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/DocClassUtil.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/DocClassUtil.java:40:	GodClass:	GodClass: Possible God Class (WMC=114, ATFD=10, TCC=0.000%)
+src/main/java/com/ly/doc/utils/DocClassUtil.java:116:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/utils/DocPathUtil.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/DocPathUtil.java:71:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/utils/DocPathUtil.java:72:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/utils/DocUrlUtil.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/DocUtil.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/DocUtil.java:51:	ExcessiveClassLength:	ExcessiveClassLength: Avoid really long classes.
+src/main/java/com/ly/doc/utils/DocUtil.java:51:	GodClass:	GodClass: Possible God Class (WMC=289, ATFD=92, TCC=0.122%)
+src/main/java/com/ly/doc/utils/DocUtil.java:256:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/utils/DocUtil.java:334:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/utils/DocUtil.java:343:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/DocUtil.java:830:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/utils/DocUtil.java:831:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/utils/DocUtil.java:1180:	CommentSize:	CommentSize: Comment is too large: Line too long
+src/main/java/com/ly/doc/utils/Iterables.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/JavaClassUtil.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/JavaClassUtil.java:54:	GodClass:	GodClass: Possible God Class (WMC=182, ATFD=198, TCC=0.000%)
+src/main/java/com/ly/doc/utils/JavaClassUtil.java:84:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/JavaClassUtil.java:93:	ExcessiveMethodLength:	ExcessiveMethodLength: Avoid really long methods.
+src/main/java/com/ly/doc/utils/JavaClassUtil.java:394:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/JavaClassValidateUtil.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/JavaFieldUtil.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/JsonUtil.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/OpenApiSchemaUtil.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/TornaUtil.java:1:	CommentSize:	CommentSize: Comment is too large: Too many lines
+src/main/java/com/ly/doc/utils/TornaUtil.java:58:	GodClass:	GodClass: Possible God Class (WMC=64, ATFD=155, TCC=0.000%)
