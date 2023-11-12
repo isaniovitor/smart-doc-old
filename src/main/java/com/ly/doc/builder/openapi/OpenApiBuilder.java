@@ -87,7 +87,8 @@ public class OpenApiBuilder extends AbstractOpenApiBuilder {
         Set<OpenApiTag> tags = new HashSet<>();
         json.put("tags", tags);
         json.put("paths", buildPaths(config, apiDocList, tags));
-        json.put("components", buildComponentsSchema(apiDocList, ComponentTypeEnum.getComponentEnumByCode(config.getComponentType())));
+        json.put("components",
+                buildComponentsSchema(apiDocList, ComponentTypeEnum.getComponentEnumByCode(config.getComponentType())));
 
         String filePath = config.getOutPath();
         filePath = filePath + DocGlobalConstants.OPEN_API_JSON;
@@ -120,7 +121,6 @@ public class OpenApiBuilder extends AbstractOpenApiBuilder {
         return serverList;
     }
 
-
     /**
      * Build request
      *
@@ -135,12 +135,13 @@ public class OpenApiBuilder extends AbstractOpenApiBuilder {
             // When summary and description are equal, there is only one
             request.put("description", apiMethodDoc.getDetail());
         }
-//        String tag = StringUtil.isEmpty(apiDoc.getDesc()) ? OPENAPI_TAG : apiDoc.getDesc();
-//        if (StringUtil.isNotEmpty(apiMethodDoc.getGroup())) {
-//            request.put("tags", new String[]{tag});
-//        } else {
-//            request.put("tags", new String[]{tag});
-//        }
+        // String tag = StringUtil.isEmpty(apiDoc.getDesc()) ? OPENAPI_TAG :
+        // apiDoc.getDesc();
+        // if (StringUtil.isNotEmpty(apiMethodDoc.getGroup())) {
+        // request.put("tags", new String[]{tag});
+        // } else {
+        // request.put("tags", new String[]{tag});
+        // }
         request.put("tags", apiMethodDoc.getTagRefs().stream().map(TagDoc::getTag).toArray());
         request.put("requestBody", buildRequestBody(apiConfig, apiMethodDoc));
         request.put("parameters", buildParameters(apiMethodDoc));
@@ -164,14 +165,13 @@ public class OpenApiBuilder extends AbstractOpenApiBuilder {
         boolean isPost = (apiMethodDoc.getType().equals(Methods.POST.getValue())
                 || apiMethodDoc.getType().equals(Methods.PUT.getValue()) ||
                 apiMethodDoc.getType().equals(Methods.PATCH.getValue()));
-        //add content of post method
+        // add content of post method
         if (isPost) {
             requestBody.put("content", buildContent(apiConfig, apiMethodDoc, false));
             return requestBody;
         }
         return null;
     }
-
 
     /**
      * response body
@@ -216,7 +216,7 @@ public class OpenApiBuilder extends AbstractOpenApiBuilder {
                 }
             }
         }
-        //with headers
+        // with headers
         if (!CollectionUtil.isEmpty(apiMethodDoc.getRequestHeaders())) {
             for (ApiReqParam header : apiMethodDoc.getRequestHeaders()) {
                 parameters = new HashMap<>(20);
@@ -266,28 +266,8 @@ public class OpenApiBuilder extends AbstractOpenApiBuilder {
     @Override
     public Map<String, Object> buildComponentsSchema(List<ApiDoc> apiDocs, ComponentTypeEnum componentTypeEnum) {
         Map<String, Object> schemas = new HashMap<>(4);
-        Map<String, Object> component = new HashMap<>();
-        component.put(DocGlobalConstants.DEFAULT_PRIMITIVE, STRING_COMPONENT);
-        apiDocs.forEach(
-                a -> {
-                    List<ApiMethodDoc> apiMethodDocs = a.getList();
-                    apiMethodDocs.forEach(
-                            method -> {
-                                //request components
-                                String requestSchema = OpenApiSchemaUtil.getClassNameFromParams(method.getRequestParams());
-                                List<ApiParam> requestParams = method.getRequestParams();
-                                Map<String, Object> prop = buildProperties(requestParams, component, false);
-                                component.put(requestSchema, prop);
-                                //response components
-                                List<ApiParam> responseParams = method.getResponseParams();
-                                String schemaName = OpenApiSchemaUtil.getClassNameFromParams(method.getResponseParams());
-                                component.put(schemaName, buildProperties(responseParams, component, true));
-                            }
-                    );
-                }
-        );
-        component.remove(OpenApiSchemaUtil.NO_BODY_PARAM);
-        schemas.put("schemas", component);
+        schemas.put("schemas",
+                OpenApiSchemaUtil.buildComponentsSchema(apiDocs, componentTypeEnum, STRING_COMPONENT, this));
         return schemas;
     }
 }

@@ -30,9 +30,14 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.print.DocFlavor.STRING;
+
+import com.ly.doc.builder.openapi.AbstractOpenApiBuilder;
 import com.ly.doc.constants.ComponentTypeEnum;
 import com.ly.doc.constants.DocGlobalConstants;
 import com.ly.doc.model.ApiConfig;
+import com.ly.doc.model.ApiDoc;
+import com.ly.doc.model.ApiMethodDoc;
 import com.ly.doc.model.ApiParam;
 import com.power.common.util.CollectionUtil;
 import com.power.common.util.StringUtil;
@@ -88,18 +93,19 @@ public class OpenApiSchemaUtil {
     }
 
     public static String getClassNameFromParams(List<ApiParam> apiParams) {
-        ComponentTypeEnum componentTypeEnum = ComponentTypeEnum.getComponentEnumByCode(ApiConfig.getInstance().getComponentType());
+        ComponentTypeEnum componentTypeEnum = ComponentTypeEnum
+                .getComponentEnumByCode(ApiConfig.getInstance().getComponentType());
         // if array[Primitive] or Primitive
         if (CollectionUtil.isNotEmpty(apiParams) && apiParams.size() == 1
                 && StringUtil.isEmpty(apiParams.get(0).getClassName())
                 && CollectionUtil.isEmpty(apiParams.get(0).getChildren())) {
             return DocGlobalConstants.DEFAULT_PRIMITIVE;
         }
-        //random name
+        // random name
         if (componentTypeEnum.equals(ComponentTypeEnum.RANDOM)) {
             return DigestUtils.md5Hex(GSON.toJson(apiParams));
         }
-        //className
+        // className
         for (ApiParam a : apiParams) {
             if (StringUtil.isNotEmpty(a.getClassName())) {
                 return OpenApiSchemaUtil.delClassName(a.getClassName());
@@ -129,5 +135,33 @@ public class OpenApiSchemaUtil {
             matchers.add(m.group());
         }
         return matchers;
+    }
+
+    public static Map<String, Object> buildComponentsSchema(List<ApiDoc> apiDocs, ComponentTypeEnum componentTypeEnum,
+            Map<String, String> STRING_COMPONENT, AbstractOpenApiBuilder abstractOpenApiBuilder) {
+        Map<String, Object> component = new HashMap<>();
+        component.put(DocGlobalConstants.DEFAULT_PRIMITIVE, STRING_COMPONENT);
+        apiDocs.forEach(
+                a -> {
+                    List<ApiMethodDoc> apiMethodDocs = a.getList();
+                    apiMethodDocs.forEach(
+                            method -> {
+                                // request components
+                                String requestSchema = OpenApiSchemaUtil
+                                        .getClassNameFromParams(method.getRequestParams());
+                                List<ApiParam> requestParams = method.getRequestParams();
+                                Map<String, Object> prop = abstractOpenApiBuilder.buildProperties(requestParams,
+                                        component, false);
+                                component.put(requestSchema, prop);
+                                // response components
+                                List<ApiParam> responseParams = method.getResponseParams();
+                                String schemaName = OpenApiSchemaUtil
+                                        .getClassNameFromParams(method.getResponseParams());
+                                component.put(schemaName,
+                                        abstractOpenApiBuilder.buildProperties(responseParams, component, true));
+                            });
+                });
+        component.remove(OpenApiSchemaUtil.NO_BODY_PARAM);
+        return component;
     }
 }

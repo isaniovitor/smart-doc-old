@@ -37,10 +37,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
-
 /**
  * @author xingzi
- * Date 2022/9/17 15:16
+ *         Date 2022/9/17 15:16
  */
 @SuppressWarnings("all")
 public class SwaggerBuilder extends AbstractOpenApiBuilder {
@@ -88,7 +87,8 @@ public class SwaggerBuilder extends AbstractOpenApiBuilder {
         Set<OpenApiTag> tags = new HashSet<>();
         json.put("tags", tags);
         json.put("paths", buildPaths(config, apiDocList, tags));
-        json.put("definitions", buildComponentsSchema(apiDocList, ComponentTypeEnum.getComponentEnumByCode(config.getComponentType())));
+        json.put("definitions",
+                buildComponentsSchema(apiDocList, ComponentTypeEnum.getComponentEnumByCode(config.getComponentType())));
 
         String filePath = config.getOutPath();
         filePath = filePath + DocGlobalConstants.OPEN_API_JSON;
@@ -140,12 +140,12 @@ public class SwaggerBuilder extends AbstractOpenApiBuilder {
         request.put("description", apiMethodDoc.getDetail());
         String tag = StringUtil.isEmpty(apiDoc.getDesc()) ? DocGlobalConstants.OPENAPI_TAG : apiDoc.getDesc();
         if (StringUtil.isNotEmpty(apiMethodDoc.getGroup())) {
-            request.put("tags", new String[]{tag});
+            request.put("tags", new String[] { tag });
         } else {
-            request.put("tags", new String[]{tag});
+            request.put("tags", new String[] { tag });
         }
         List<Map<String, Object>> parameters = buildParameters(apiMethodDoc);
-        //requestBody
+        // requestBody
         if (CollectionUtil.isNotEmpty(apiMethodDoc.getRequestParams())) {
             Map<String, Object> parameter = new HashMap<>();
             parameter.put("in", "body");
@@ -191,8 +191,7 @@ public class SwaggerBuilder extends AbstractOpenApiBuilder {
         Map<String, Object> responseBody = new HashMap<>(10);
         responseBody.put("description", "OK");
         if (CollectionUtil.isNotEmpty(apiMethodDoc.getResponseParams()) ||
-                Objects.nonNull(apiMethodDoc.getReturnSchema())
-        ) {
+                Objects.nonNull(apiMethodDoc.getReturnSchema())) {
             responseBody.putAll(buildContentBody(apiConfig, apiMethodDoc, true));
         }
         return responseBody;
@@ -222,7 +221,7 @@ public class SwaggerBuilder extends AbstractOpenApiBuilder {
                     parametersList.add(parameters);
                 }
             }
-            //with headers
+            // with headers
             if (!CollectionUtil.isEmpty(apiMethodDoc.getRequestHeaders())) {
                 for (ApiReqParam header : apiMethodDoc.getRequestHeaders()) {
                     parameters = new HashMap<>(20);
@@ -255,7 +254,8 @@ public class SwaggerBuilder extends AbstractOpenApiBuilder {
             parameters.put("required", apiParam.isRequired());
             parameters.put("type", apiParam.getType());
         } else {
-            if (DocGlobalConstants.OBJECT.equals(apiParam.getType()) || (DocGlobalConstants.ARRAY.equals(apiParam.getType()) && apiParam.isHasItems())) {
+            if (DocGlobalConstants.OBJECT.equals(apiParam.getType())
+                    || (DocGlobalConstants.ARRAY.equals(apiParam.getType()) && apiParam.isHasItems())) {
                 parameters.put("type", "object(complex POJO please use @RequestBody)");
             } else {
                 String desc = apiParam.getDesc();
@@ -270,34 +270,11 @@ public class SwaggerBuilder extends AbstractOpenApiBuilder {
 
         }
 
-
         return parameters;
     }
 
     @Override
     public Map<String, Object> buildComponentsSchema(List<ApiDoc> apiDocs, ComponentTypeEnum componentTypeEnum) {
-        Map<String, Object> component = new HashMap<>();
-        component.put(DocGlobalConstants.DEFAULT_PRIMITIVE, STRING_COMPONENT);
-        apiDocs.forEach(
-                a -> {
-                    List<ApiMethodDoc> apiMethodDocs = a.getList();
-                    apiMethodDocs.forEach(
-                            method -> {
-                                //request components
-                                String requestSchema = OpenApiSchemaUtil.getClassNameFromParams(method.getRequestParams());
-                                List<ApiParam> requestParams = method.getRequestParams();
-                                Map<String, Object> prop = buildProperties(requestParams, component, false);
-                                component.put(requestSchema, prop);
-                                //response components
-                                List<ApiParam> responseParams = method.getResponseParams();
-                                String schemaName = OpenApiSchemaUtil.getClassNameFromParams(method.getResponseParams());
-                                component.put(schemaName, buildProperties(responseParams, component, true));
-                            }
-                    );
-                }
-        );
-        component.remove(OpenApiSchemaUtil.NO_BODY_PARAM);
-        return component;
+        return OpenApiSchemaUtil.buildComponentsSchema(apiDocs, componentTypeEnum, STRING_COMPONENT, this);
     }
-
 }
