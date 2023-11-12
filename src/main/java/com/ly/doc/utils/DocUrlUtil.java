@@ -21,9 +21,12 @@
 package com.ly.doc.utils;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.ly.doc.constants.DocGlobalConstants;
+import com.ly.doc.model.ApiMethodDoc;
+import com.ly.doc.model.FormData;
 import com.power.common.util.StringUtil;
 import com.power.common.util.UrlUtil;
 
@@ -66,5 +69,18 @@ public class DocUrlUtil {
     public static String getMvcUrls(String baseServer, String baseUrl, String shortUrl) {
         List<String> urls = DocUtil.split(shortUrl);
         return getMvcUrls(baseServer, baseUrl, urls);
+    }
+
+    public static String buildBody(List<FormData> formDataList) {
+        String body = UrlUtil.urlJoin(DocGlobalConstants.EMPTY, DocUtil.formDataToMap(formDataList))
+                .replace("?", DocGlobalConstants.EMPTY);
+        return StringUtil.removeQuotes(body);
+    }
+
+    public static String buildUrl(String path, ApiMethodDoc apiMethodDoc, Map<String, String> pathParamsMap,
+            String body) {
+        path = DocUtil.formatAndRemove(path, pathParamsMap);
+        String url = apiMethodDoc.getServerUrl() + "/" + path;
+        return UrlUtil.simplifyUrl(url);
     }
 }
