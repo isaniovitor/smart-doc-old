@@ -46,7 +46,8 @@ public class ApiParamTreeUtil {
         // find root
         for (ApiParam apiParam : apiParamList) {
             // remove pre of field
-            apiParam.setField(apiParam.getField().replaceAll(DocGlobalConstants.PARAM_PREFIX, "").replaceAll("&nbsp;", ""));
+            apiParam.setField(
+                    apiParam.getField().replaceAll(DocGlobalConstants.PARAM_PREFIX, "").replaceAll("&nbsp;", ""));
             // pid == 0
             if (apiParam.getPid() == 0) {
                 params.add(apiParam);
@@ -96,8 +97,9 @@ public class ApiParamTreeUtil {
      * @param requestBodyCounter hasRequestBody
      * @return ApiMethodReqParam
      */
-    public static ApiMethodReqParam buildMethodReqParam(List<ApiParam> paramList, final Map<String, ApiReqParam> queryReqParamMap,
-                                                        final Map<String, ApiReqParam> pathReqParamMap, int requestBodyCounter) {
+    public static ApiMethodReqParam buildMethodReqParam(List<ApiParam> paramList,
+            final Map<String, ApiReqParam> queryReqParamMap,
+            final Map<String, ApiReqParam> pathReqParamMap, int requestBodyCounter) {
         List<ApiParam> pathParams = new ArrayList<>();
         List<ApiParam> queryParams = new ArrayList<>();
         List<ApiParam> bodyParams = new ArrayList<>();
@@ -127,7 +129,7 @@ public class ApiParamTreeUtil {
                 continue;
             }
             final ApiParam apiParam = ApiReqParam.convertToApiParam(value)
-                .setQueryParam(true).setId(queryParams.size() + 1);
+                    .setQueryParam(true).setId(queryParams.size() + 1);
             queryParams.add(apiParam);
         }
 
@@ -137,14 +139,36 @@ public class ApiParamTreeUtil {
                 continue;
             }
             final ApiParam apiParam = ApiReqParam.convertToApiParam(value)
-                .setPathParam(true).setId(pathParams.size() + 1);
+                    .setPathParam(true).setId(pathParams.size() + 1);
             pathParams.add(apiParam);
         }
 
         return ApiMethodReqParam.builder()
-            .setRequestParams(bodyParams)
-            .setPathParams(pathParams)
-            .setQueryParams(queryParams);
+                .setRequestParams(bodyParams)
+                .setPathParams(pathParams)
+                .setQueryParams(queryParams);
     }
 
+    public static ApiParam createAndAddApiParam(
+            List<ApiParam> paramList,
+            String paramName,
+            String simpleName,
+            boolean isPathVariable,
+            boolean queryParam,
+            String mockValue,
+            StringBuilder comment,
+            boolean required) {
+        ApiParam param = ApiParam.of()
+                .setField(paramName)
+                .setType(DocClassUtil.processTypeNameForParams(simpleName))
+                .setId(paramList.size() + 1)
+                .setPathParam(isPathVariable)
+                .setQueryParam(queryParam)
+                .setValue(mockValue)
+                .setDesc(comment.toString())
+                .setRequired(required)
+                .setVersion(DocGlobalConstants.DEFAULT_VERSION);
+
+        return param;
+    }
 }
