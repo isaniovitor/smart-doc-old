@@ -21,7 +21,6 @@
  * under the License.
  */
 
-
 package com.ly.doc.builder.openapi;
 
 import com.ly.doc.constants.ComponentTypeEnum;
@@ -42,10 +41,9 @@ import java.util.*;
 
 import static com.ly.doc.constants.DocGlobalConstants.*;
 
-
 /**
  * @author xingzi
- * Date 2022/10/12 18:49
+ *         Date 2022/10/12 18:49
  */
 @SuppressWarnings("all")
 public abstract class AbstractOpenApiBuilder {
@@ -166,7 +164,8 @@ public abstract class AbstractOpenApiBuilder {
         } else if (!isRep && Objects.nonNull(apiMethodDoc.getRequestSchema())) {
             content.put("schema", apiMethodDoc.getRequestSchema());
         } else {
-            content.put("schema", buildBodySchema(apiMethodDoc, ComponentTypeEnum.getComponentEnumByCode(apiConfig.getComponentType()), isRep));
+            content.put("schema", buildBodySchema(apiMethodDoc,
+                    ComponentTypeEnum.getComponentEnumByCode(apiConfig.getComponentType()), isRep));
         }
 
         if (OPENAPI_2_COMPONENT_KRY.equals(componentKey) && !isRep) {
@@ -186,12 +185,14 @@ public abstract class AbstractOpenApiBuilder {
      * @param apiMethodDoc ApiMethodDoc
      * @param isRep        is response
      */
-    public Map<String, Object> buildBodySchema(ApiMethodDoc apiMethodDoc, ComponentTypeEnum componentTypeEnum, boolean isRep) {
+    public Map<String, Object> buildBodySchema(ApiMethodDoc apiMethodDoc, ComponentTypeEnum componentTypeEnum,
+            boolean isRep) {
         Map<String, Object> schema = new HashMap<>(10);
         Map<String, Object> innerScheme = new HashMap<>(10);
         // For response
         if (isRep) {
-            String responseRef = componentKey + OpenApiSchemaUtil.getClassNameFromParams(apiMethodDoc.getResponseParams());
+            String responseRef = componentKey
+                    + OpenApiSchemaUtil.getClassNameFromParams(apiMethodDoc.getResponseParams());
             if (apiMethodDoc.getIsResponseArray() == 1) {
                 schema.put("type", ARRAY);
                 innerScheme.put("$ref", responseRef);
@@ -210,7 +211,7 @@ public abstract class AbstractOpenApiBuilder {
         } else {
             requestRef = componentKey + OpenApiSchemaUtil.getClassNameFromParams(apiMethodDoc.getRequestParams());
         }
-        //remove special characters in url
+        // remove special characters in url
         if (CollectionUtil.isNotEmpty(apiMethodDoc.getRequestParams())) {
             if (apiMethodDoc.getIsRequestArray() == 1) {
                 schema.put("type", ARRAY);
@@ -222,7 +223,6 @@ public abstract class AbstractOpenApiBuilder {
         }
         return schema;
     }
-
 
     /**
      * Build body example
@@ -248,8 +248,8 @@ public abstract class AbstractOpenApiBuilder {
         content.put("summary", "test data");
         if (!isRep) {
             content.put("value", StringUtil.isEmpty(
-                    apiMethodDoc.getRequestExample().getJsonBody()) ? apiMethodDoc.getRequestExample().getExampleBody() :
-                    apiMethodDoc.getRequestExample().getJsonBody());
+                    apiMethodDoc.getRequestExample().getJsonBody()) ? apiMethodDoc.getRequestExample().getExampleBody()
+                            : apiMethodDoc.getRequestExample().getJsonBody());
         } else {
             content.put("value", apiMethodDoc.getResponseUsage());
         }
@@ -275,7 +275,8 @@ public abstract class AbstractOpenApiBuilder {
     public Map<String, Object> buildParametersSchema(ApiParam apiParam) {
         Map<String, Object> schema = new HashMap<>(10);
         String openApiType = DocUtil.javaTypeToOpenApiTypeConvert(apiParam.getType());
-        // The values of openApiType are "file", "object", "array","string",  "integer","number"
+        // The values of openApiType are "file", "object", "array","string",
+        // "integer","number"
         schema.put("type", openApiType);
         if ("file".equals(openApiType)) {
             schema.put("format", "binary");
@@ -332,7 +333,8 @@ public abstract class AbstractOpenApiBuilder {
      *
      * @param apiDocs List of ApiDoc
      */
-    abstract public Map<String, Object> buildComponentsSchema(List<ApiDoc> apiDocs, ComponentTypeEnum componentTypeEnum);
+    abstract public Map<String, Object> buildComponentsSchema(List<ApiDoc> apiDocs,
+            ComponentTypeEnum componentTypeEnum);
 
     /**
      * component schema properties
@@ -379,7 +381,7 @@ public abstract class AbstractOpenApiBuilder {
     private Map<String, Object> buildPropertiesData(ApiParam apiParam, Map<String, Object> component, boolean isResp) {
         Map<String, Object> propertiesData = new HashMap<>();
         String openApiType = DocUtil.javaTypeToOpenApiTypeConvert(apiParam.getType());
-        //array object file map
+        // array object file map
         propertiesData.put("description", apiParam.getDesc());
         if (StringUtil.isNotEmpty(apiParam.getValue())) {
             propertiesData.put("example", StringUtil.removeDoubleQuotes(apiParam.getValue()));
@@ -409,7 +411,7 @@ public abstract class AbstractOpenApiBuilder {
                     }
                 }
             }
-            //基础数据类型
+            // 基础数据类型
             else {
                 Map<String, Object> arrayRef = new HashMap<>(4);
                 arrayRef.put("type", "string");

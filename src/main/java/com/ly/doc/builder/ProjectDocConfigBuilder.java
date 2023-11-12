@@ -78,7 +78,6 @@ public class ProjectDocConfigBuilder {
 
     private final ApiConfig apiConfig;
 
-
     public ProjectDocConfigBuilder(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
         if (null == apiConfig) {
             throw new NullPointerException("ApiConfig can't be null.");
@@ -149,7 +148,7 @@ public class ProjectDocConfigBuilder {
 
     public JavaClass getClassByName(String simpleName) {
         JavaClass cls = javaProjectBuilder.getClassByName(simpleName);
-        List<DocJavaField> fieldList = JavaClassUtil.getFields(cls, 0, new LinkedHashMap<>(),null);
+        List<DocJavaField> fieldList = JavaClassUtil.getFields(cls, 0, new LinkedHashMap<>(), null);
         // handle inner class
         if (Objects.isNull(cls.getFields()) || fieldList.isEmpty()) {
             cls = classFilesMap.get(simpleName);
@@ -319,7 +318,8 @@ public class ProjectDocConfigBuilder {
             try {
                 Class.forName(bodyAdvice.getClassName());
             } catch (ClassNotFoundException e) {
-                throw new RuntimeException("Can't find class " + bodyAdvice.getClassName() + " for ResponseBodyAdvice.");
+                throw new RuntimeException(
+                        "Can't find class " + bodyAdvice.getClassName() + " for ResponseBodyAdvice.");
             }
         }
     }
@@ -364,7 +364,6 @@ public class ProjectDocConfigBuilder {
         return javaProjectBuilder;
     }
 
-
     public Map<String, JavaClass> getClassFilesMap() {
         return classFilesMap;
     }
@@ -384,7 +383,6 @@ public class ProjectDocConfigBuilder {
     public ApiConfig getApiConfig() {
         return apiConfig;
     }
-
 
     public Map<String, String> getReplaceClassMap() {
         return replaceClassMap;
