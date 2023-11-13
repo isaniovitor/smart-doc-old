@@ -95,7 +95,8 @@ public class DocUtil {
         fieldValue.put("date-date", DateTimeUtil.dateToStr(new Date(), DateTimeUtil.DATE_FORMAT_DAY));
         fieldValue.put("begintime-date", DateTimeUtil.dateToStr(new Date(), DateTimeUtil.DATE_FORMAT_DAY));
         fieldValue.put("endtime-date", DateTimeUtil.dateToStr(new Date(), DateTimeUtil.DATE_FORMAT_DAY));
-        fieldValue.put("time-localtime", LocalDateTime.now().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+        fieldValue.put("time-localtime",
+                LocalDateTime.now().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
         fieldValue.put("state-int", String.valueOf(RandomUtil.randomInt(0, 10)));
         fieldValue.put("state-integer", String.valueOf(RandomUtil.randomInt(0, 10)));
         fieldValue.put("flag-int", String.valueOf(RandomUtil.randomInt(0, 10)));
@@ -111,7 +112,6 @@ public class DocUtil {
         fieldValue.put("limit-integer", "10");
         fieldValue.put("size-int", "10");
         fieldValue.put("size-integer", "10");
-
         fieldValue.put("offset-int", "1");
         fieldValue.put("offset-integer", "1");
         fieldValue.put("offset-long", "1");
@@ -152,7 +152,6 @@ public class DocUtil {
             return "\"" + value + "\"";
         }
     }
-
 
     /**
      * Generate random field values based on field names and type.
@@ -212,7 +211,6 @@ public class DocUtil {
         }
     }
 
-
     /**
      * match controller package
      *
@@ -241,7 +239,7 @@ public class DocUtil {
     /**
      * match the controller package
      *
-     * @param packageFilters package filter
+     * @param packageFilters  package filter
      * @param controllerClass controller class
      * @return boolean
      */
@@ -253,10 +251,11 @@ public class DocUtil {
         String controllerName = controllerClass.getCanonicalName();
 
         boolean pointToMethod = false;
-        // if the 'packageFilters' is point to the method, add all candidate methods into this container
+        // if the 'packageFilters' is point to the method, add all candidate methods
+        // into this container
         int capacity = Math.max((int) (controllerClass.getMethods().size() / 0.75F) + 1, 16);
         Set<String> filterMethods = new HashSet<>(capacity);
-        
+
         String[] filters = packageFilters.split(",");
 
         for (String filter : filters) {
@@ -300,7 +299,7 @@ public class DocUtil {
             cacheFilterMethods(controllerName, filterMethods);
             return true;
         }
-        
+
         return false;
     }
 
@@ -324,20 +323,22 @@ public class DocUtil {
      * Put the specified method names into a cache.
      *
      * @param controller the controller canonical name
-     * @param methods the methods will be cached
+     * @param methods    the methods will be cached
      */
     private static void cacheFilterMethods(String controller, Set<String> methods) {
         filterMethodCache.put(controller, methods);
     }
 
     /**
-     * Get filter method name from cache, no cache will return "*", which means all methods.
+     * Get filter method name from cache, no cache will return "*", which means all
+     * methods.
      *
      * @param controller the controller canonical name
      * @return the cached methods or "*"
      */
     private static Set<String> getFilterMethodsCache(String controller) {
-        return filterMethodCache.getOrDefault(controller, Collections.singleton(DocGlobalConstants.DEFAULT_FILTER_METHOD));
+        return filterMethodCache.getOrDefault(controller,
+                Collections.singleton(DocGlobalConstants.DEFAULT_FILTER_METHOD));
     }
 
     /**
@@ -372,7 +373,7 @@ public class DocUtil {
             List<String> finalPaths = new ArrayList<>(pathList.size());
             for (String pathParam : pathList) {
                 if (pathParam.startsWith("http:") || pathParam.startsWith("https:")) {
-                    finalPaths.add(pathParam+"/");
+                    finalPaths.add(pathParam + "/");
                     continue;
                 }
                 if (pathParam.startsWith("${")) {
@@ -466,8 +467,8 @@ public class DocUtil {
      */
     public static String handleHttpMethod(String method) {
         switch (method) {
-            case "RequestMethod.GET": //for spring
-            case "MethodType.GET": //for solon
+            case "RequestMethod.GET": // for spring
+            case "MethodType.GET": // for solon
                 return "GET";
             case "RequestMethod.POST":
             case "MethodType.POST":
@@ -500,7 +501,6 @@ public class DocUtil {
             return StringUtil.trimBlank(url);
         }
     }
-
 
     /**
      * Split url
@@ -546,7 +546,8 @@ public class DocUtil {
      * @param className  class name
      * @return Map
      */
-    public static Map<String, String> getCommentsByTag(final JavaMethod javaMethod, final String tagName, final String className) {
+    public static Map<String, String> getCommentsByTag(final JavaMethod javaMethod, final String tagName,
+            final String className) {
         List<DocletTag> paramTags = javaMethod.getTagsByName(tagName);
         Map<String, String> paramTagMap = new HashMap<>();
         for (DocletTag docletTag : paramTags) {
@@ -554,20 +555,22 @@ public class DocUtil {
             if (StringUtil.isEmpty(value) && StringUtil.isNotEmpty(className)) {
                 throw new RuntimeException("ERROR: #" + javaMethod.getName()
                         + "() - bad @" + tagName + " javadoc from " + javaMethod.getDeclaringClass()
-                        .getCanonicalName() + ", This is an invalid comment.");
+                                .getCanonicalName()
+                        + ", This is an invalid comment.");
             }
             if (DocTags.PARAM.equals(tagName)) {
                 String pName = value;
                 String pValue = DocGlobalConstants.NO_COMMENTS_FOUND;
                 int idx = value.indexOf(" ");
-                //existed \n
+                // existed \n
                 if (idx > -1) {
                     pName = value.substring(0, idx);
                     pValue = value.substring(idx + 1);
                 }
                 if ("|".equals(StringUtil.trim(pValue)) && StringUtil.isNotEmpty(className)) {
                     throw new RuntimeException("ERROR: An invalid comment was written [@" + tagName + " |]," +
-                            "Please @see " + javaMethod.getDeclaringClass().getCanonicalName() + "." + javaMethod.getName() + "()");
+                            "Please @see " + javaMethod.getDeclaringClass().getCanonicalName() + "."
+                            + javaMethod.getName() + "()");
                 }
                 paramTagMap.put(pName, pValue);
             } else {
@@ -585,7 +588,8 @@ public class DocUtil {
      * @param className  class name
      * @return Map
      */
-    public static String getNormalTagComments(final JavaMethod javaMethod, final String tagName, final String className) {
+    public static String getNormalTagComments(final JavaMethod javaMethod, final String tagName,
+            final String className) {
         Map<String, String> map = getCommentsByTag(javaMethod, tagName, className);
         return getFirstKeyAndValue(map);
     }
@@ -622,7 +626,7 @@ public class DocUtil {
                 } else {
                     value = entry.getKey() + entry.getValue();
                 }
-//                value = replaceNewLineToHtmlBr(value);
+                // value = replaceNewLineToHtmlBr(value);
             }
         }
         return value;
@@ -673,7 +677,6 @@ public class DocUtil {
         }
         return formDataMap;
     }
-
 
     public static boolean javaPrimaryType(String type) {
         switch (type) {
@@ -803,7 +806,8 @@ public class DocUtil {
      * @return the url
      */
     public static String getRequestMappingUrl(JavaAnnotation annotation) {
-        return getPathUrl(annotation, DocAnnotationConstants.VALUE_PROP, DocAnnotationConstants.NAME_PROP, DocAnnotationConstants.PATH_PROP);
+        return getPathUrl(annotation, DocAnnotationConstants.VALUE_PROP, DocAnnotationConstants.NAME_PROP,
+                DocAnnotationConstants.PATH_PROP);
     }
 
     /**
@@ -827,8 +831,10 @@ public class DocUtil {
     }
 
     /**
-     * resolve the string of {@link Add} which has {@link FieldRef}(to be exact is {@link FieldRef}) children,
-     * the value of {@link FieldRef} will be resolved with the real value of it if it is the static final member of any other class
+     * resolve the string of {@link Add} which has {@link FieldRef}(to be exact is
+     * {@link FieldRef}) children,
+     * the value of {@link FieldRef} will be resolved with the real value of it if
+     * it is the static final member of any other class
      *
      * @param annotationValue annotationValue
      * @return annotation value
@@ -847,10 +853,10 @@ public class DocUtil {
                     return StringUtil.removeQuotes(javaField.getInitializationExpression());
                 }
             }
-            return Optional.ofNullable(annotationValue).map(Expression::getParameterValue).map(Object::toString).orElse(StringUtil.EMPTY);
+            return Optional.ofNullable(annotationValue).map(Expression::getParameterValue).map(Object::toString)
+                    .orElse(StringUtil.EMPTY);
         }
     }
-
 
     /**
      * handle spring mvc RequestHeader value
@@ -902,8 +908,10 @@ public class DocUtil {
                     if (StringUtil.isNotEmpty(dictionary.getValuesResolverClass())) {
                         valuesResolverClass = classLoader.loadClass(dictionary.getValuesResolverClass());
                     }
-                    if (null != valuesResolverClass && DictionaryValuesResolver.class.isAssignableFrom(valuesResolverClass)) {
-                        DictionaryValuesResolver resolver = (DictionaryValuesResolver) DocClassUtil.newInstance(valuesResolverClass);
+                    if (null != valuesResolverClass
+                            && DictionaryValuesResolver.class.isAssignableFrom(valuesResolverClass)) {
+                        DictionaryValuesResolver resolver = (DictionaryValuesResolver) DocClassUtil
+                                .newInstance(valuesResolverClass);
                         // add two method results
                         errorCodeList.addAll(resolver.resolve());
                         errorCodeList.addAll(resolver.resolve(clzz));
@@ -918,7 +926,8 @@ public class DocUtil {
                             if (Objects.nonNull(interfaceClass.getTagByName(DocTags.IGNORE))) {
                                 continue;
                             }
-                            List<ApiErrorCode> enumDictionaryList = EnumUtil.getEnumInformation(enumClass, dictionary.getCodeField(),
+                            List<ApiErrorCode> enumDictionaryList = EnumUtil.getEnumInformation(enumClass,
+                                    dictionary.getCodeField(),
                                     dictionary.getDescField());
                             errorCodeList.addAll(enumDictionaryList);
                         }
@@ -928,7 +937,8 @@ public class DocUtil {
                         if (Objects.nonNull(javaClass.getTagByName(DocTags.IGNORE))) {
                             continue;
                         }
-                        List<ApiErrorCode> enumDictionaryList = EnumUtil.getEnumInformation(clzz, dictionary.getCodeField(),
+                        List<ApiErrorCode> enumDictionaryList = EnumUtil.getEnumInformation(clzz,
+                                dictionary.getCodeField(),
                                 dictionary.getDescField());
                         errorCodeList.addAll(enumDictionaryList);
                     }
@@ -984,8 +994,10 @@ public class DocUtil {
                         apiDocDict.setOrder(order++);
                         apiDocDict.setTitle(javaClass.getComment());
                         apiDocDict.setDescription(
-                                DocUtil.getEscapeAndCleanComment(Optional.ofNullable(apiNoteTag).map(DocletTag::getValue).orElse(StringUtil.EMPTY)));
-                        List<DataDict> enumDictionaryList = EnumUtil.getEnumInformation(enumClass, apiDataDictionary.getCodeField(),
+                                DocUtil.getEscapeAndCleanComment(Optional.ofNullable(apiNoteTag)
+                                        .map(DocletTag::getValue).orElse(StringUtil.EMPTY)));
+                        List<DataDict> enumDictionaryList = EnumUtil.getEnumInformation(enumClass,
+                                apiDataDictionary.getCodeField(),
                                 apiDataDictionary.getDescField());
                         apiDocDict.setDataDictList(enumDictionaryList);
                         apiDocDictList.add(apiDocDict);
@@ -1001,11 +1013,13 @@ public class DocUtil {
                     }
                     DocletTag apiNoteTag = javaClass.getTagByName(DocTags.API_NOTE);
                     apiDocDict.setDescription(
-                            DocUtil.getEscapeAndCleanComment(Optional.ofNullable(apiNoteTag).map(DocletTag::getValue).orElse(StringUtil.EMPTY)));
+                            DocUtil.getEscapeAndCleanComment(
+                                    Optional.ofNullable(apiNoteTag).map(DocletTag::getValue).orElse(StringUtil.EMPTY)));
                     if (apiDataDictionary.getTitle() == null) {
                         apiDocDict.setTitle(javaClass.getComment());
                     }
-                    List<DataDict> enumDictionaryList = EnumUtil.getEnumInformation(clazz, apiDataDictionary.getCodeField(),
+                    List<DataDict> enumDictionaryList = EnumUtil.getEnumInformation(clazz,
+                            apiDataDictionary.getCodeField(),
                             apiDataDictionary.getDescField());
                     if (!clazz.isEnum()) {
                         throw new RuntimeException(clazz.getCanonicalName() + " is not an enum class.");
@@ -1022,14 +1036,15 @@ public class DocUtil {
     }
 
     /**
-     * Format  field Type
+     * Format field Type
      *
      * @param genericMap   genericMap
      * @param globGicName  globGicName array
      * @param fieldGicName fieldGicName
      * @return string
      */
-    public static String formatFieldTypeGicName(Map<String, String> genericMap, String[] globGicName, String fieldGicName) {
+    public static String formatFieldTypeGicName(Map<String, String> genericMap, String[] globGicName,
+            String fieldGicName) {
         String gicName = "";
         String[] gNameArr = DocClassUtil.getSimpleGicName(fieldGicName);
         for (String g : gNameArr) {
@@ -1070,8 +1085,8 @@ public class DocUtil {
                 && StringUtil.isEmpty(apiReqHeader.getExcludePathPatterns())) {
             return true;
         }
-        return DocPathUtil.matches(requestMapping.getShortUrl(), apiReqHeader.getPathPatterns()
-                , apiReqHeader.getExcludePathPatterns());
+        return DocPathUtil.matches(requestMapping.getShortUrl(), apiReqHeader.getPathPatterns(),
+                apiReqHeader.getExcludePathPatterns());
 
     }
 
@@ -1102,7 +1117,8 @@ public class DocUtil {
         while (startIndex != -1) {
             int endIndex = findPlaceholderEndIndex(result, startIndex);
             if (endIndex != -1) {
-                String placeholder = result.substring(startIndex + SystemPlaceholders.PLACEHOLDER_PREFIX.length(), endIndex);
+                String placeholder = result.substring(startIndex + SystemPlaceholders.PLACEHOLDER_PREFIX.length(),
+                        endIndex);
                 String originalPlaceholder = placeholder;
                 if (visitedPlaceholders == null) {
                     visitedPlaceholders = new HashSet<>(4);
@@ -1127,11 +1143,13 @@ public class DocUtil {
                 }
                 if (propVal != null) {
                     propVal = delPropertiesUrl(propVal, visitedPlaceholders);
-                    result.replace(startIndex - 1, endIndex + SystemPlaceholders.PLACEHOLDER_PREFIX.length() - 1, propVal);
+                    result.replace(startIndex - 1, endIndex + SystemPlaceholders.PLACEHOLDER_PREFIX.length() - 1,
+                            propVal);
                     startIndex = result.indexOf(SystemPlaceholders.PLACEHOLDER_PREFIX, startIndex + propVal.length());
                 } else {
                     // Proceed with unprocessed value.
-                    startIndex = result.indexOf(SystemPlaceholders.PLACEHOLDER_PREFIX, endIndex + SystemPlaceholders.PLACEHOLDER_PREFIX.length());
+                    startIndex = result.indexOf(SystemPlaceholders.PLACEHOLDER_PREFIX,
+                            endIndex + SystemPlaceholders.PLACEHOLDER_PREFIX.length());
                 }
 
                 visitedPlaceholders.remove(originalPlaceholder);
@@ -1177,7 +1195,8 @@ public class DocUtil {
 
     /**
      * split url by '/'
-     * example: ${server.error.path:${error.path:/error}}/test/{name:[a-zA-Z0-9]{3}}/{bb}/add
+     * example:
+     * ${server.error.path:${error.path:/error}}/test/{name:[a-zA-Z0-9]{3}}/{bb}/add
      *
      * @param url
      * @return List of path

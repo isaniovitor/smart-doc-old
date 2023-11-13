@@ -3,11 +3,20 @@ package com.ly.doc.utils;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.Stack;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.google.gson.JsonElement;
@@ -15,25 +24,34 @@ import com.google.gson.JsonParser;
 import com.ly.doc.constants.DocAnnotationConstants;
 import com.ly.doc.constants.DocGlobalConstants;
 import com.ly.doc.constants.TornaConstants;
+import com.ly.doc.constants.ValidatorAnnotations;
 import com.ly.doc.model.ApiConfig;
 import com.ly.doc.model.DocJavaField;
 import com.ly.doc.model.torna.TornaRequestInfo;
 import com.power.common.util.CollectionUtil;
+import com.power.common.util.DateTimeUtil;
+import com.power.common.util.IDCardUtil;
+import com.power.common.util.RandomUtil;
 import com.power.common.util.StringUtil;
 import com.thoughtworks.qdox.JavaProjectBuilder;
+import com.thoughtworks.qdox.model.JavaAnnotation;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
 import com.thoughtworks.qdox.model.JavaParameterizedType;
 import com.thoughtworks.qdox.model.JavaType;
 import com.thoughtworks.qdox.model.expression.AnnotationValue;
+import com.thoughtworks.qdox.model.expression.AnnotationValueList;
 import com.thoughtworks.qdox.model.expression.TypeRef;
 import com.thoughtworks.qdox.model.impl.DefaultJavaField;
 import com.thoughtworks.qdox.model.impl.DefaultJavaParameterizedType;
 
+import net.datafaker.Faker;
+
 public class Utils {
 
-  // TornaUtils
+  // TornaUtil
+
   public static void printDebugInfo(ApiConfig apiConfig, String responseMsg, Map<String, String> requestJson,
       String category) {
     if (apiConfig.isTornaDebug()) {
@@ -62,7 +80,7 @@ public class Utils {
     }
   }
 
-  // JavaClassUtils
+  // JavaClassUtil
 
   /**
    * Get fields
@@ -291,6 +309,52 @@ public class Utils {
     }
   }
 
+  public static List<AnnotationValue> getAnnotationValues(List<String> validates, JavaAnnotation javaAnnotation) {
+    List<AnnotationValue> annotationValueList = new ArrayList<>();
+    String simpleName = javaAnnotation.getType().getValue();
+    if (simpleName.equalsIgnoreCase(ValidatorAnnotations.VALIDATED)) {
+      if (Objects.nonNull(javaAnnotation.getProperty(DocAnnotationConstants.VALUE_PROP))) {
+        AnnotationValue v = javaAnnotation.getProperty(DocAnnotationConstants.VALUE_PROP);
+        if (v instanceof AnnotationValueList) {
+          annotationValueList = ((AnnotationValueList) v).getValueList();
+        }
+        if (v instanceof TypeRef) {
+          annotationValueList.add(v);
+        }
+      }
+    } else if (validates.contains(simpleName)) {
+      if (Objects.nonNull(javaAnnotation.getProperty(DocAnnotationConstants.GROUP_PROP))) {
+        AnnotationValue v = javaAnnotation.getProperty(DocAnnotationConstants.GROUP_PROP);
+        if (v instanceof AnnotationValueList) {
+          annotationValueList = ((AnnotationValueList) v).getValueList();
+        }
+        if (v instanceof TypeRef) {
+          annotationValueList.add(v);
+        }
+      }
+    }
+    return annotationValueList;
+  }
+
+  public static Map<String, String> getJsonIgnoresProp(JavaAnnotation annotation, String propName) {
+    Map<String, String> ignoreFields = new HashMap<>();
+    Object ignoresObject = annotation.getNamedParameter(propName);
+    if (Objects.isNull(ignoresObject)) {
+      return ignoreFields;
+    }
+    if (ignoresObject instanceof String) {
+      String prop = StringUtil.removeQuotes(ignoresObject.toString());
+      ignoreFields.put(prop, null);
+      return ignoreFields;
+    }
+    LinkedList<String> ignorePropList = (LinkedList) ignoresObject;
+    for (String str : ignorePropList) {
+      String prop = StringUtil.removeQuotes(str);
+      ignoreFields.put(prop, null);
+    }
+    return ignoreFields;
+  }
+
   /**
    * @param javaField
    * @return
@@ -352,6 +416,104 @@ public class Utils {
       JavaClass implementJavaClass = builder.getClassByName(genericFullyQualifiedName);
       recursionGetAllValidInterface(implementJavaClass, javaClassSet, builder);
     }
+  }
+
+  // DocClassUtil
+
+  /**
+   * get class names by generic class name.<br>
+   * "controller.R<T,A>$Data<T,A>" =====> ["T,A", "T,A"]
+   * 
+   * @param typeName generic class name
+   * @return array of string
+   */
+  public static String[] getGicName(String typeName) {
+    StringBuilder builder = new StringBuilder(typeName.length());
+    List<String> ginNameList = new ArrayList<>();
+    int ltLen = 0;
+    for (char c : typeName.toCharArray()) {
+      if (c == '<' || c == '>') {
+        ltLen += (c == '<') ? 1 : -1;
+        // Skip the outermost symbols <
+        if (c == '<' && ltLen == 1) {
+          continue;
+        }
+      }
+      if (ltLen > 0) {
+        builder.append(c);
+      } else if (ltLen == 0 && c == '>') {
+        ginNameList.add(builder.toString());
+        builder.setLength(0);
+      }
+    }
+    return ginNameList.toArray(new String[0]);
+  }
+
+  /**
+   * Automatic repair of generic split class names
+   *
+   * @param arr arr of class name
+   * @return array of String
+   */
+  public static String[] classNameFix(String[] arr) {
+    List<String> classes = new ArrayList<>();
+    List<Integer> indexList = new ArrayList<>();
+    int globIndex = 0;
+    int length = arr.length;
+    for (int i = 0; i < length; i++) {
+      if (classes.size() > 0) {
+        int index = classes.size() - 1;
+        if (!isClassName(classes.get(index))) {
+          globIndex = globIndex + 1;
+          if (globIndex < length) {
+            indexList.add(globIndex);
+            String className = classes.get(index) + "," + arr[globIndex];
+            classes.set(index, className);
+          }
+        } else {
+          globIndex = globIndex + 1;
+          if (globIndex < length) {
+            if (isClassName(arr[globIndex])) {
+              indexList.add(globIndex);
+              classes.add(arr[globIndex]);
+            } else {
+              if (!indexList.contains(globIndex) && !indexList.contains(globIndex + 1)) {
+                indexList.add(globIndex);
+                classes.add(arr[globIndex] + "," + arr[globIndex + 1]);
+                globIndex = globIndex + 1;
+                indexList.add(globIndex);
+              }
+            }
+          }
+        }
+      } else {
+        if (isClassName(arr[i])) {
+          indexList.add(i);
+          classes.add(arr[i]);
+        } else {
+          if (!indexList.contains(i) && !indexList.contains(i + 1)) {
+            globIndex = i + 1;
+            classes.add(arr[i] + "," + arr[globIndex]);
+            indexList.add(i);
+            indexList.add(i + 1);
+          }
+        }
+      }
+    }
+    return classes.toArray(new String[0]);
+  }
+
+  private static boolean isClassName(String className) {
+    className = className.replaceAll("[^<>]", "");
+    Stack<Character> stack = new Stack<>();
+    for (char c : className.toCharArray()) {
+      if (c == '<') {
+        stack.push('>');
+      } else if (stack.isEmpty() || c != stack.pop()) {
+        return false;
+      }
+    }
+    return stack.isEmpty();
   }
 
 }

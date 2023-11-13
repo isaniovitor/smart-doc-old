@@ -39,7 +39,6 @@ import com.thoughtworks.qdox.model.JavaClass;
  */
 public class DocClassUtil {
 
-
     /**
      * get class names by generic class name
      *
@@ -65,46 +64,17 @@ public class DocClassUtil {
                 return type.split(" ");
             }
 
-            String[] arr = Arrays.stream(getGicName(typeName))
+            String[] arr = Arrays.stream(Utils.getGicName(typeName))
                     .map(str -> str.split(","))
                     .map(Arrays::asList)
                     .flatMap(Collection::stream)
                     .toArray(String[]::new);
 
-            return classNameFix(arr);
+            return Utils.classNameFix(arr);
         } else {
             return new String[0];
         }
     }
-
-    /**
-     * get class names by generic class name.<br>
-     *  "controller.R<T,A>$Data<T,A>"  =====>  ["T,A", "T,A"]
-     * @param typeName  generic class name
-     * @return array of string
-     */
-    static String[] getGicName(String typeName) {
-        StringBuilder builder = new StringBuilder(typeName.length());
-        List<String> ginNameList = new ArrayList<>();
-        int ltLen = 0;
-        for (char c : typeName.toCharArray()) {
-            if (c == '<' || c == '>') {
-                ltLen += (c == '<') ? 1 : -1;
-                // Skip the outermost symbols <
-                if (c == '<' && ltLen == 1) {
-                    continue;
-                }
-            }
-            if (ltLen > 0) {
-                builder.append(c);
-            } else if (ltLen == 0 && c == '>') {
-                ginNameList.add(builder.toString());
-                builder.setLength(0);
-            }
-        }
-        return ginNameList.toArray(new String[0]);
-    }
-
 
     /**
      * Get a simple type name from a generic class name
@@ -113,7 +83,8 @@ public class DocClassUtil {
      * @return String
      */
     public static String getSimpleName(String gicName) {
-        // remove strings contained in '< >'  and < >.  e.g. controller.R<T,A>$Data<T,A>  =====>  controller.R$Data
+        // remove strings contained in '< >' and < >. e.g. controller.R<T,A>$Data<T,A>
+        // =====> controller.R$Data
         StringBuilder builder = new StringBuilder(gicName.length());
         int ltLen = 0;
         for (char c : gicName.toCharArray()) {
@@ -124,60 +95,6 @@ public class DocClassUtil {
             }
         }
         return builder.toString();
-    }
-
-    /**
-     * Automatic repair of generic split class names
-     *
-     * @param arr arr of class name
-     * @return array of String
-     */
-    private static String[] classNameFix(String[] arr) {
-        List<String> classes = new ArrayList<>();
-        List<Integer> indexList = new ArrayList<>();
-        int globIndex = 0;
-        int length = arr.length;
-        for (int i = 0; i < length; i++) {
-            if (classes.size() > 0) {
-                int index = classes.size() - 1;
-                if (!isClassName(classes.get(index))) {
-                    globIndex = globIndex + 1;
-                    if (globIndex < length) {
-                        indexList.add(globIndex);
-                        String className = classes.get(index) + "," + arr[globIndex];
-                        classes.set(index, className);
-                    }
-                } else {
-                    globIndex = globIndex + 1;
-                    if (globIndex < length) {
-                        if (isClassName(arr[globIndex])) {
-                            indexList.add(globIndex);
-                            classes.add(arr[globIndex]);
-                        } else {
-                            if (!indexList.contains(globIndex) && !indexList.contains(globIndex + 1)) {
-                                indexList.add(globIndex);
-                                classes.add(arr[globIndex] + "," + arr[globIndex + 1]);
-                                globIndex = globIndex + 1;
-                                indexList.add(globIndex);
-                            }
-                        }
-                    }
-                }
-            } else {
-                if (isClassName(arr[i])) {
-                    indexList.add(i);
-                    classes.add(arr[i]);
-                } else {
-                    if (!indexList.contains(i) && !indexList.contains(i + 1)) {
-                        globIndex = i + 1;
-                        classes.add(arr[i] + "," + arr[globIndex]);
-                        indexList.add(i);
-                        indexList.add(i + 1);
-                    }
-                }
-            }
-        }
-        return classes.toArray(new String[0]);
     }
 
     /**
@@ -323,19 +240,6 @@ public class DocClassUtil {
         }
     }
 
-    private static boolean isClassName(String className) {
-        className = className.replaceAll("[^<>]", "");
-        Stack<Character> stack = new Stack<>();
-        for (char c : className.toCharArray()) {
-            if (c == '<') {
-                stack.push('>');
-            } else if (stack.isEmpty() || c != stack.pop()) {
-                return false;
-            }
-        }
-        return stack.isEmpty();
-    }
-
     /**
      * Get class annotations
      *
@@ -350,7 +254,8 @@ public class DocClassUtil {
                 classAnnotations.addAll(superClass.getAnnotations());
             }
         } catch (Throwable e) {
-            throw new RuntimeException("Could not obtain annotations for class: " + cls.getFullyQualifiedName() + "\n" + e);
+            throw new RuntimeException(
+                    "Could not obtain annotations for class: " + cls.getFullyQualifiedName() + "\n" + e);
         }
         classAnnotations.addAll(cls.getAnnotations());
         return classAnnotations;
@@ -359,8 +264,8 @@ public class DocClassUtil {
     public static <T> T newInstance(@Nonnull Class<T> classWithNoArgsConstructor) {
         try {
             return classWithNoArgsConstructor.getConstructor().newInstance();
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException |
-                 InstantiationException e) {
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException
+                | InstantiationException e) {
             throw new IllegalArgumentException("Class must have the NoArgsConstructor");
         }
     }
