@@ -94,7 +94,8 @@ public class RpcDocBuildTemplate implements IDocBuildTemplate<RpcApiDoc>, IRpcDo
         return false;
     }
 
-    private List<RpcJavaMethod> buildServiceMethod(final JavaClass cls, ApiConfig apiConfig, ProjectDocConfigBuilder projectBuilder) {
+    private List<RpcJavaMethod> buildServiceMethod(final JavaClass cls, ApiConfig apiConfig,
+            ProjectDocConfigBuilder projectBuilder) {
         String clazName = cls.getCanonicalName();
         List<JavaMethod> methods = cls.getMethods();
         List<RpcJavaMethod> methodDocList = new ArrayList<>(methods.size());
@@ -110,13 +111,13 @@ public class RpcDocBuildTemplate implements IDocBuildTemplate<RpcApiDoc>, IRpcDo
                 continue;
             }
             if (StringUtil.isEmpty(method.getComment()) && apiConfig.isStrict()) {
-                throw new RuntimeException("Unable to find comment for method " + method.getName() + " in " + cls.getCanonicalName());
+                throw new RuntimeException(
+                        "Unable to find comment for method " + method.getName() + " in " + cls.getCanonicalName());
             }
             if (needAllMethods || filterMethods.contains(method.getName())) {
                 RpcJavaMethod apiMethodDoc = convertToRpcJavaMethod(apiConfig, method, null);
                 methodDocList.add(apiMethodDoc);
             }
-
 
         }
         // add parent class methods
@@ -145,8 +146,10 @@ public class RpcDocBuildTemplate implements IDocBuildTemplate<RpcApiDoc>, IRpcDo
             List<ApiParam> requestParams = requestParams(method.getJavaMethod(), projectBuilder,
                     new AtomicInteger(0), method.getActualTypesMap());
             // build response params
-            List<ApiParam> responseParams = buildReturnApiParams(DocJavaMethod.builder().setJavaMethod(method.getJavaMethod())
-                    .setActualTypesMap(method.getActualTypesMap()), projectBuilder);
+            List<ApiParam> responseParams = buildReturnApiParams(
+                    DocJavaMethod.builder().setJavaMethod(method.getJavaMethod())
+                            .setActualTypesMap(method.getActualTypesMap()),
+                    projectBuilder);
             if (apiConfig.isParamsDataToTree()) {
                 method.setRequestParams(ApiParamTreeUtil.apiParamToTree(requestParams));
                 method.setResponseParams(ApiParamTreeUtil.apiParamToTree(responseParams));
@@ -160,9 +163,9 @@ public class RpcDocBuildTemplate implements IDocBuildTemplate<RpcApiDoc>, IRpcDo
     }
 
     private List<ApiParam> requestParams(final JavaMethod javaMethod,
-                                         ProjectDocConfigBuilder builder,
-                                         AtomicInteger atomicInteger,
-                                         Map<String, JavaType> actualTypesMap) {
+            ProjectDocConfigBuilder builder,
+            AtomicInteger atomicInteger,
+            Map<String, JavaType> actualTypesMap) {
         boolean isStrict = builder.getApiConfig().isStrict();
         boolean isShowJavaType = builder.getApiConfig().getShowJavaType();
         String className = javaMethod.getDeclaringClass().getCanonicalName();
@@ -175,9 +178,12 @@ public class RpcDocBuildTemplate implements IDocBuildTemplate<RpcApiDoc>, IRpcDo
         for (JavaParameter parameter : parameterList) {
             boolean required = false;
             String paramName = parameter.getName();
-            String typeName = replaceTypeName(parameter.getType().getGenericCanonicalName(), actualTypesMap, Boolean.FALSE);
-            String simpleName = replaceTypeName(parameter.getType().getValue(), actualTypesMap, Boolean.FALSE).toLowerCase();
-            String fullTypeName = replaceTypeName(parameter.getType().getFullyQualifiedName(), actualTypesMap, Boolean.FALSE);
+            String typeName = replaceTypeName(parameter.getType().getGenericCanonicalName(), actualTypesMap,
+                    Boolean.FALSE);
+            String simpleName = replaceTypeName(parameter.getType().getValue(), actualTypesMap, Boolean.FALSE)
+                    .toLowerCase();
+            String fullTypeName = replaceTypeName(parameter.getType().getFullyQualifiedName(), actualTypesMap,
+                    Boolean.FALSE);
             String paramPre = paramName + ".";
             if (!paramTagMap.containsKey(paramName) && JavaClassValidateUtil.isPrimitive(fullTypeName) && isStrict) {
                 throw new RuntimeException("ERROR: Unable to find javadoc @param for actual param \""
@@ -193,7 +199,8 @@ public class RpcDocBuildTemplate implements IDocBuildTemplate<RpcApiDoc>, IRpcDo
                 }
             }
             comment.append(JavaFieldUtil.getJsrComment(annotations));
-            Set<String> groupClasses = JavaClassUtil.getParamGroupJavaClass(annotations, builder.getJavaProjectBuilder());
+            Set<String> groupClasses = JavaClassUtil.getParamGroupJavaClass(annotations,
+                    builder.getJavaProjectBuilder());
             if (JavaClassValidateUtil.isCollection(fullTypeName) || JavaClassValidateUtil.isArray(fullTypeName)) {
                 if (JavaClassValidateUtil.isCollection(typeName)) {
                     typeName = typeName + "<T>";
@@ -204,8 +211,8 @@ public class RpcDocBuildTemplate implements IDocBuildTemplate<RpcApiDoc>, IRpcDo
                     gicName = gicName.substring(0, gicName.indexOf("["));
                 }
                 if (JavaClassValidateUtil.isPrimitive(gicName)) {
-                    String processedType = isShowJavaType ?
-                            JavaClassUtil.getClassSimpleName(typeName) : DocClassUtil.processTypeNameForParams(simpleName);
+                    String processedType = isShowJavaType ? JavaClassUtil.getClassSimpleName(typeName)
+                            : DocClassUtil.processTypeNameForParams(simpleName);
                     ApiParam param = ApiParam.of().setId(atomicInteger.incrementAndGet()).setField(paramName)
                             .setDesc(comment + "   (children type : " + gicName + ")")
                             .setRequired(required)
@@ -226,8 +233,10 @@ public class RpcDocBuildTemplate implements IDocBuildTemplate<RpcApiDoc>, IRpcDo
                 paramList.add(param);
             } else if (JavaClassValidateUtil.isMap(fullTypeName)) {
                 if (JavaClassValidateUtil.isMap(typeName)) {
-                    ApiParam apiParam = ApiParam.of().setId(atomicInteger.incrementAndGet()).setField(paramName).setType(typeName)
-                            .setDesc(comment.toString()).setRequired(required).setVersion(DocGlobalConstants.DEFAULT_VERSION);
+                    ApiParam apiParam = ApiParam.of().setId(atomicInteger.incrementAndGet()).setField(paramName)
+                            .setType(typeName)
+                            .setDesc(comment.toString()).setRequired(required)
+                            .setVersion(DocGlobalConstants.DEFAULT_VERSION);
                     paramList.add(apiParam);
                     continue;
                 }
@@ -236,7 +245,8 @@ public class RpcDocBuildTemplate implements IDocBuildTemplate<RpcApiDoc>, IRpcDo
                         Boolean.FALSE, new HashMap<>(), builder, groupClasses, 0, Boolean.FALSE, atomicInteger));
             } else if (javaClass.isEnum()) {
                 ApiParam param = ApiParam.of().setId(atomicInteger.incrementAndGet()).setField(paramName)
-                        .setType("Enum").setRequired(required).setDesc(comment.toString()).setVersion(DocGlobalConstants.DEFAULT_VERSION);
+                        .setType("Enum").setRequired(required).setDesc(comment.toString())
+                        .setVersion(DocGlobalConstants.DEFAULT_VERSION);
                 paramList.add(param);
             } else {
                 paramList.addAll(ParamsBuildHelper.buildParams(typeName, paramPre, 0, "true",
@@ -276,7 +286,7 @@ public class RpcDocBuildTemplate implements IDocBuildTemplate<RpcApiDoc>, IRpcDo
     }
 
     private void handleJavaApiDoc(JavaClass cls, List<RpcApiDoc> apiDocList, List<RpcJavaMethod> apiMethodDocs,
-                                  int order, ProjectDocConfigBuilder builder) {
+            int order, ProjectDocConfigBuilder builder) {
         String className = cls.getCanonicalName();
         String shortName = cls.getName();
         String comment = cls.getComment();

@@ -74,13 +74,13 @@ public interface IBaseDocBuildTemplate {
         }
         String returnTypeGenericCanonicalName = method.getReturnType().getGenericCanonicalName();
         if (Objects.nonNull(projectBuilder.getApiConfig().getResponseBodyAdvice())
-            && Objects.isNull(method.getTagByName(IGNORE_RESPONSE_BODY_ADVICE))) {
+                && Objects.isNull(method.getTagByName(IGNORE_RESPONSE_BODY_ADVICE))) {
             String responseBodyAdvice = projectBuilder.getApiConfig().getResponseBodyAdvice().getClassName();
             if (!returnTypeGenericCanonicalName.startsWith(responseBodyAdvice)) {
                 returnTypeGenericCanonicalName = new StringBuffer()
-                    .append(responseBodyAdvice)
-                    .append("<")
-                    .append(returnTypeGenericCanonicalName).append(">").toString();
+                        .append(responseBodyAdvice)
+                        .append("<")
+                        .append(returnTypeGenericCanonicalName).append(">").toString();
             }
         }
         Map<String, JavaType> actualTypesMap = docJavaMethod.getActualTypesMap();
@@ -107,8 +107,8 @@ public interface IBaseDocBuildTemplate {
                     docJavaMethod.setReturnSchema(OpenApiSchemaUtil.arrayTypeSchema(gicName));
                     return new ArrayList<>(0);
                 }
-                 return ParamsBuildHelper.buildParams(gicName, "", 0, null, Boolean.TRUE,
-                    new HashMap<>(), projectBuilder, null, 0, Boolean.FALSE, null);
+                return ParamsBuildHelper.buildParams(gicName, "", 0, null, Boolean.TRUE,
+                        new HashMap<>(), projectBuilder, null, 0, Boolean.FALSE, null);
             } else {
                 return new ArrayList<>(0);
             }
@@ -119,11 +119,11 @@ public interface IBaseDocBuildTemplate {
                 return new ArrayList<>(0);
             }
             return ParamsBuildHelper.buildParams(returnType, "", 0, null, Boolean.TRUE,
-                new HashMap<>(), projectBuilder, null, 0, Boolean.FALSE, null);
+                    new HashMap<>(), projectBuilder, null, 0, Boolean.FALSE, null);
         }
         if (StringUtil.isNotEmpty(returnType)) {
             return ParamsBuildHelper.buildParams(returnType, "", 0, null, Boolean.TRUE,
-                new HashMap<>(), projectBuilder, null, 0, Boolean.FALSE, null);
+                    new HashMap<>(), projectBuilder, null, 0, Boolean.FALSE, null);
         }
         return new ArrayList<>(0);
     }
@@ -134,9 +134,8 @@ public interface IBaseDocBuildTemplate {
         apiMethodDoc.setRequestParams(ApiParamTreeUtil.apiParamToTree(apiMethodDoc.getRequestParams()));
     }
 
-
     default String formatRequestUrl(Map<String, String> pathParamsMap, Map<String, String> queryParamsMap,
-        String serverUrl, String path) {
+            String serverUrl, String path) {
         path = DocUtil.formatAndRemove(path, pathParamsMap);
         String url = UrlUtil.urlJoin(path, queryParamsMap);
         url = StringUtil.removeQuotes(url);
@@ -145,8 +144,9 @@ public interface IBaseDocBuildTemplate {
         return url;
     }
 
-    default List<DocJavaParameter> getJavaParameterList(ProjectDocConfigBuilder builder, final DocJavaMethod docJavaMethod,
-                                                        FrameworkAnnotations frameworkAnnotations) {
+    default List<DocJavaParameter> getJavaParameterList(ProjectDocConfigBuilder builder,
+            final DocJavaMethod docJavaMethod,
+            FrameworkAnnotations frameworkAnnotations) {
         JavaMethod javaMethod = docJavaMethod.getJavaMethod();
         Map<String, String> replacementMap = builder.getReplaceClassMap();
         Map<String, String> paramTagMap = docJavaMethod.getParamTagMap();
@@ -172,7 +172,7 @@ public interface IBaseDocBuildTemplate {
             String genericCanonicalName = javaType.getGenericCanonicalName();
             String fullTypeName = javaType.getFullyQualifiedName();
             String commentClass = paramTagMap.get(paramName);
-            //ignore request params
+            // ignore request params
             if (Objects.nonNull(commentClass) && commentClass.contains(IGNORE)) {
                 continue;
             }
@@ -182,7 +182,8 @@ public interface IBaseDocBuildTemplate {
                 genericCanonicalName = rewriteClassName;
                 fullTypeName = DocClassUtil.getSimpleName(rewriteClassName);
             }
-            if (JavaClassValidateUtil.isMvcIgnoreParams(genericCanonicalName, builder.getApiConfig().getIgnoreRequestParams())) {
+            if (JavaClassValidateUtil.isMvcIgnoreParams(genericCanonicalName,
+                    builder.getApiConfig().getIgnoreRequestParams())) {
                 continue;
             }
             fullTypeName = DocClassUtil.rewriteRequestParam(fullTypeName);
@@ -191,10 +192,11 @@ public interface IBaseDocBuildTemplate {
             apiJavaParameter.setAnnotations(annotations);
             for (JavaAnnotation annotation : annotations) {
                 String annotationName = annotation.getType().getValue();
-                if (Objects.nonNull(frameworkAnnotations) && frameworkAnnotations.getRequestBodyAnnotation().getAnnotationName()
-                    .equals(annotationName)) {
+                if (Objects.nonNull(frameworkAnnotations)
+                        && frameworkAnnotations.getRequestBodyAnnotation().getAnnotationName()
+                                .equals(annotationName)) {
                     if (Objects.nonNull(builder.getApiConfig().getRequestBodyAdvice())
-                        && Objects.isNull(javaMethod.getTagByName(IGNORE_REQUEST_BODY_ADVICE))) {
+                            && Objects.isNull(javaMethod.getTagByName(IGNORE_REQUEST_BODY_ADVICE))) {
                         String requestBodyAdvice = builder.getApiConfig().getRequestBodyAdvice().getClassName();
                         fullTypeName = requestBodyAdvice;
                         genericCanonicalName = requestBodyAdvice + "<" + genericCanonicalName + ">";
