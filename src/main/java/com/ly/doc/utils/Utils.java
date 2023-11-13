@@ -3,20 +3,14 @@ package com.ly.doc.utils;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.Stack;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.google.gson.JsonElement;
@@ -29,9 +23,6 @@ import com.ly.doc.model.ApiConfig;
 import com.ly.doc.model.DocJavaField;
 import com.ly.doc.model.torna.TornaRequestInfo;
 import com.power.common.util.CollectionUtil;
-import com.power.common.util.DateTimeUtil;
-import com.power.common.util.IDCardUtil;
-import com.power.common.util.RandomUtil;
 import com.power.common.util.StringUtil;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.model.JavaAnnotation;
@@ -45,8 +36,6 @@ import com.thoughtworks.qdox.model.expression.AnnotationValueList;
 import com.thoughtworks.qdox.model.expression.TypeRef;
 import com.thoughtworks.qdox.model.impl.DefaultJavaField;
 import com.thoughtworks.qdox.model.impl.DefaultJavaParameterizedType;
-
-import net.datafaker.Faker;
 
 public class Utils {
 
